@@ -55,7 +55,6 @@ env/
 
 # HuggingFace / Transformers cache
 .cache/
-models/
 
 # =========================
 # LOGS
