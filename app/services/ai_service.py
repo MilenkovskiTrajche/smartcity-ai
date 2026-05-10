@@ -1,3 +1,6 @@
+from email.mime import text
+from unicodedata import category
+
 from app.utils.category_utils import calculate_category_score
 from app.utils.priority_utils import calculate_priority, calculate_confidence
 from app.services.image_ai import get_image_description
@@ -13,7 +16,9 @@ class AiService:
         if request.imageUrl:
             image_text = get_image_description(request.imageUrl).lower()
 
-        full_text = text + " " + image_text
+        full_text = f"{image_text}"
+
+        print("Full text for analysis:", full_text)
 
         # category
         category, scores = calculate_category_score(full_text)
@@ -24,25 +29,18 @@ class AiService:
         # confidence
         confidence = calculate_confidence(scores, category)
 
-        # institution mapping
-        institution_map = {
-            "water": "water",
-            "fire": "electricity",
-            "waste": "sanitation",
-            "road": "roads"
-        }
-
-        institution = institution_map.get(category, "general")
-
         match = request.category.lower() == category if request.category else True
 
-        summary = f"{text} | image: {image_text}"[:200]
+        summary = (
+            f"Issue detected: {category}. "
+            f"User report: {text}. "
+            f"AI vision: {image_text}."
+        )[:250]
 
         return {
             "category": category,
             "summary": summary,
             "priority": priority,
-            "institutionCategory": institution,
             "confidence": confidence,
             "categoryMatch": match
         }
