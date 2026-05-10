@@ -1,0 +1,64 @@
+# =========================
+# ENV FILES
+# =========================
+.env
+
+# =========================
+# JAVA / SPRING BOOT
+# =========================
+target/
+*.jar
+*.war
+*.class
+*.log
+
+# Maven / Gradle
+.mvn/
+mvnw
+mvnw.cmd
+.gradle/
+build/
+
+# =========================
+# INTELLIJ IDEA
+# =========================
+.idea/
+*.iml
+out/
+
+# =========================
+# SPRING BOOT DEVTOOLS
+# =========================
+*.restart
+
+# =========================
+# MAC OS
+# =========================
+.DS_Store
+
+# =========================
+# PYTHON (AI SERVICE)
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# virtual env
+.venv/
+venv/
+env/
+
+# pytest / cache
+.pytest_cache/
+.mypy_cache/
+
+# HuggingFace / Transformers cache
+.cache/
+models/
+
+# =========================
+# LOGS
+# =========================
+logs/
+*.log
