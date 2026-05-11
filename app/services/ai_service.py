@@ -1,6 +1,8 @@
 from email.mime import text
 from unicodedata import category
 
+from httpcore import request
+
 from app.utils.category_utils import calculate_category_score
 from app.utils.priority_utils import calculate_priority, calculate_confidence
 from app.services.image_ai import get_image_description
@@ -11,15 +13,18 @@ class AiService:
     def analyze(self, request):
 
         text = request.description.lower()
-
         image_text = ""
-        if request.imageUrl:
-            image_text = get_image_description(request.imageUrl).lower()
 
-        full_text = f"{image_text}"
+        if request.imageUrl and request.imageUrl.strip():
 
-        print("Full text for analysis:", full_text)
+            image_text = get_image_description(
+                request.imageUrl
+            ).lower()
 
+        else:
+            print("No image URL provided.")
+
+        full_text = f"{text} {image_text}".strip()
         # category
         category, scores = calculate_category_score(full_text)
 
@@ -34,7 +39,7 @@ class AiService:
         summary = (
             f"Issue detected: {category}. "
             f"User report: {text}. "
-            f"AI vision: {image_text}."
+            f"AI vision: {image_text if image_text else 'not available'}"
         )[:250]
 
         return {
