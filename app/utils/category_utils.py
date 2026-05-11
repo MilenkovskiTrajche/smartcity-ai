@@ -1,19 +1,31 @@
 CATEGORY_KEYWORDS = {
-    "water": ["leak", "flood", "burst pipe", "water overflow", "sewage", "drainage"],
-    
-    "fire": ["fire", "smoke", "burning", "flames", "explosion"],
-    
-    "road": ["pothole", "crack", "asphalt damage", "road collapse", "uneven road"],
-    
-    "traffic": ["accident", "car crash", "collision", "traffic jam", "blocked road"],
-    
-    "waste": ["garbage", "trash", "litter", "dumping", "overflow bin"],
-    
-    "infrastructure": ["construction issue", "broken streetlight", "damaged pole", "bridge damage"],
-    
-    "electricity": ["power outage", "electricity cut", "spark", "broken wire"],
-    
-    "public_safety": ["danger", "hazard", "unsafe", "exposed wires"]
+    "water": [
+        "leak", "flood", "burst pipe", "water overflow", "sewage", "drainage"
+    ],
+
+    "fire": [
+        "fire", "smoke", "burning", "flames", "explosion"
+    ],
+
+    "road": [
+        "pothole", "crack", "asphalt damage", "road collapse", "uneven road", "bridge damage"
+    ],
+
+    "traffic": [
+        "accident", "car crash", "collision", "traffic jam", "blocked road"
+    ],
+
+    "waste": [
+        "garbage", "trash", "litter", "dumping", "overflow bin"
+    ],
+
+    "electricity": [
+        "power outage", "electricity cut", "spark", "broken wire", "broken streetlight"
+    ],
+
+    "public_safety": [
+        "danger", "hazard", "unsafe", "exposed wires", "assault", "theft"
+    ]
 }
 
 
