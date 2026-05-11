@@ -29,19 +29,13 @@ app/
 └── utils/
     ├── category_utils.py  # Rule-based scoring & category mapping
     └── priority_utils.py  # Severity assessment logic
-
-
-# Create the environment
-python -m venv .venv
-
-# Activate it
-# On macOS / Linux:
-source .venv/bin/activate
-# On Windows:
-.venv\Scripts\activate
-
+```
+## Install Dependencies
+```bash
 pip install -r requirements.txt
-
+```
+## Run the server
+```bash
 uvicorn app.main:app --reload --port 8000
-
-Endpoint: POST /analyze
+```
+### Endpoint: POST /analyze
