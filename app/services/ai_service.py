@@ -49,3 +49,21 @@ class AiService:
             "confidence": confidence,
             "categoryMatch": match
         }
+
+    def generate_description(self, request):
+        
+        image_text = ""
+
+        if request.imageUrl and request.imageUrl.strip():
+
+            image_text = get_image_description(
+                request.imageUrl
+            ).lower()
+        else:
+            print("No image URL provided.")
+
+        full_text = f"{image_text}".strip()
+        
+        return {
+            "description": full_text
+        } 
