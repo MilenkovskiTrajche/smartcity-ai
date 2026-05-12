@@ -1,8 +1,3 @@
-from email.mime import text
-from unicodedata import category
-
-from httpcore import request
-
 from app.utils.category_utils import calculate_category_score
 from app.utils.priority_utils import calculate_priority, calculate_confidence
 from app.services.image_ai import get_image_description

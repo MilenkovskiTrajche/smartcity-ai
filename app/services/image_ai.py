@@ -1,25 +1,44 @@
-from transformers import BlipProcessor, BlipForConditionalGeneration
+import torch
+from transformers import VisionEncoderDecoderModel, ViTImageProcessor, AutoTokenizer
 from PIL import Image
 import requests
 from io import BytesIO
+torch.set_num_threads(1)  # Limit to 1 thread for better performance in web server context
 
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
+model = None
+processor = None
+tokenizer = None
+
+def load_model():
+    global model, processor, tokenizer
+
+    if model is None:
+        model = VisionEncoderDecoderModel.from_pretrained(
+            "nlpconnect/vit-gpt2-image-captioning"
+        )
+        processor = ViTImageProcessor.from_pretrained(
+            "nlpconnect/vit-gpt2-image-captioning"
+        )
+        tokenizer = AutoTokenizer.from_pretrained(
+            "nlpconnect/vit-gpt2-image-captioning"
+        )
 
 
 def get_image_description(image_url: str) -> str:
     try:
-        response = requests.get(image_url, timeout=10)
-        response.raise_for_status()
+        load_model()
 
-        image = Image.open(BytesIO(response.content)).convert("RGB")
+        image = Image.open(BytesIO(requests.get(image_url).content)).convert("RGB")
 
-        inputs = processor(image, return_tensors="pt")
-        out = model.generate(**inputs)
+        pixel_values = processor(images=image, return_tensors="pt").pixel_values
 
-        caption = processor.decode(out[0], skip_special_tokens=True)
+        with torch.no_grad():
+            output_ids = model.generate(pixel_values)
+
+        caption = tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
         return caption
 
     except Exception as e:
+        print("IMAGE AI ERROR:", str(e))
         return "unknown image"

@@ -4,6 +4,4 @@ pydantic
 python-multipart
 Pillow
 transformers
-torch
-pillow
 requests
